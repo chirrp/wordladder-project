@@ -1,0 +1,24 @@
+DESIGN // WORDLADDER
+
+Created a class WordLadder to hold my graph and priority queue. Reads in from a dictionary file provided by argv[1].
+
+VARIABLES:
+1) set<string> checked_set : Keeps track of all values that are already in the priority queue. This is required because the "distance" value of each word is determined by how far away it is from the root word, and if a word that is already in the queue is found again then it will incorrectly decrease its priority.  
+2) map<string, set<string> > neighbors : Keeps track of all valid neighbors of the key value.
+3) map<string, string> parent : Keeps track of the shortest path.
+4) list<string> dictionary : Takes in the parsed dictionary file.
+5) pq_zero <string> worklist : Keeps track of all neighbors to be checked until end word is found.
+
+FUNCTIONS:
+1) isNeighbor: compares two strings, if it is a valid neighbor then returns true. 
+2) addNeighbors: updates the neighbor map with all valid neighbors that are not already in the priority queue.
+3) dijkstra: execute dijkstra's algorithm to fill up the parent map
+	-Push in begin word into worklist
+	-Loop while worklist is not empty
+		-enter top of worklist and all its neighbors to checked_set
+		-addNeighbors on all the neighbors of worklist.top
+		-update parent map
+		-add neighbors of worklist.top into worklist
+		-pop off worklist
+		-check if any neighbors are equal to end, return if so
+4) outputLadder: outputs shortest word ladder from begin to end
